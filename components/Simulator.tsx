@@ -9,7 +9,7 @@ import CPU from "./Cpu";
 
 export default function Simulator({
   program,
-  initialMemory,
+  initialMemory
 }: {
   program: Program;
   initialMemory: Memory;
@@ -37,6 +37,7 @@ export default function Simulator({
 
   return (
     <>
+      <h2 className="text-4xl font-bold py-3">Code</h2>
       <div className="columns-3">
         <Program program={program} step={step}></Program>
       </div>
@@ -44,10 +45,12 @@ export default function Simulator({
       {/* <div className="relative"> */}
         <svg className="absolute inset-0 pointer-events-none">...</svg>
 
+        <h2 className="text-4xl font-bold py-3">Computer</h2>
         <CPU snapshot={snapshot}></CPU>
         <Memory snapshot={snapshot}></Memory>
       {/* </div> */}
 
+      <h2 className="text-4xl font-bold py-3">Controls</h2>
       <Controls
         playing={playing}
         canPrevious={step > 0}
