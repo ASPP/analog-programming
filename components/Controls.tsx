@@ -16,41 +16,48 @@ export default function Controls({
   onPlayPause: () => void;
 }) {
   return (
-    <div className="grid grid-cols-5 gap-2">
-      <button
-        className="rounded border border-red-200 p-4 px-4 py-2 hover:bg-indigo-50"
-        onClick={onPrevious}
-        disabled={!canPrevious}
-      >
-        ⏮<br/>Previous
-      </button>
-      <button
-        className="rounded border border-red-200 p-4 px-4 py-2 hover:bg-indigo-50"
-        onClick={onPlayPause}
-        disabled={playing}
-      >
-        ▶<br/> Play
-      </button>
-      <button
-        className="rounded border border-red-200 p-4 px-4 py-2 hover:bg-indigo-50"
-        onClick={onPlayPause}
-        disabled={!playing}
-      >
-        ⏸<br/> Pause
-      </button>
-      <button
-        className="rounded border border-red-200 p-4 px-4 py-2 hover:bg-indigo-50"
-        onClick={onNext}
-        disabled={!canNext}
-      >
-        ⏭<br/> Next
-      </button>
-      <button
-        className="rounded border border-red-200 p-4 px-4 py-2 hover:bg-indigo-50"
-        onClick={onRestart}
-      >
-        ↺<br/> Restart
-      </button>
+    <div className="flex justify-center">
+      <div className="inline-flex overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+        <button
+          onClick={onPrevious}
+          disabled={!canPrevious}
+          className="px-4 py-3 text-gray-700 transition
+                 hover:bg-indigo-50
+                 disabled:cursor-not-allowed disabled:opacity-30"
+          title="Previous step"
+        >
+          ⏮
+        </button>
+
+        <button
+          onClick={onPlayPause}
+          className="border-x border-gray-200 px-6 py-3 text-gray-700
+                 transition hover:bg-indigo-50"
+          title={playing ? "Pause" : "Play"}
+        >
+          {playing ? "⏸" : "▶"}
+        </button>
+
+        <button
+          onClick={onNext}
+          disabled={!canNext}
+          className="px-4 py-3 text-gray-700 transition
+                 hover:bg-indigo-50
+                 disabled:cursor-not-allowed disabled:opacity-30"
+          title="Next step"
+        >
+          ⏭
+        </button>
+
+        <button
+          onClick={onRestart}
+          className="border-l border-gray-200 px-4 py-3 text-gray-700
+                 transition hover:bg-indigo-50"
+          title="Restart"
+        >
+          ↺
+        </button>
+      </div>
     </div>
   );
 }

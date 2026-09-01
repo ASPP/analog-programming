@@ -19,6 +19,11 @@ interface MachineState {
   halted: boolean;
 }
 
+interface InitialState {
+  registers: Record<Register, number | null>;
+  memory: Memory;
+}
+
 interface Card {
     id: number;
     name: string;

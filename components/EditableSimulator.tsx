@@ -32,8 +32,6 @@ export default function EditableSimulator({
     // setStep(0);
   }
 
-  const initialMemory = [1, 20, 43, 5, 23, null, null];
-
   return (
     <>
       <h1 className="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
@@ -81,7 +79,6 @@ export default function EditableSimulator({
       {program.ok && (
         <Simulator
           program={program.program}
-          initialMemory={initialMemory}
         ></Simulator>
       )}
 
