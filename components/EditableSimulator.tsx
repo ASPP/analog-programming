@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Simulator from "./Simulator";
 import { compile, CompileError } from "@/lib/compile";
+import Demo from "./Demo";
 
 function showCompileError(e: CompileError) {
   return `${e.line}: ${e.message}`;
@@ -20,16 +21,21 @@ export default function EditableSimulator({
 
   const result = useMemo(() => compile(source), [source]);
 
-  function apply() {
-    const result = compile(source);
+  function apply(sourceToApply = source) {
+    const result = compile(sourceToApply);
 
     if (!result.ok) {
       return;
     }
 
+    setSource(sourceToApply);
     setProgram(result);
     setEditing(false);
-    // setStep(0);
+    //   setStep(null);
+  }
+
+  function applySource(source: string) {
+    apply(source);
   }
 
   return (
@@ -39,6 +45,8 @@ export default function EditableSimulator({
           ASPP analog programming
         </span>
       </h1>
+
+      <Demo setCode={applySource}></Demo>
 
       {editing && (
         <>
@@ -55,7 +63,7 @@ export default function EditableSimulator({
             className="w-full min-h-80 rounded-xl border border-gray-200 bg-gray-100 p-4 font-mono text-sm leading-relaxed shadow-inner outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 resize-y"
             rows={20}
             onKeyDown={(e) => {
-                // do not trigger save dialog
+              // do not trigger save dialog
               if ((e.ctrlKey || e.metaKey) && e.key === "s") {
                 e.preventDefault();
                 // apply();
@@ -76,11 +84,7 @@ export default function EditableSimulator({
         </button>
       )}
 
-      {program.ok && (
-        <Simulator
-          program={program.program}
-        ></Simulator>
-      )}
+      {program.ok && <Simulator program={program.program}></Simulator>}
 
       {!program.ok && <>{program.errors.map(showCompileError)}</>}
     </>
